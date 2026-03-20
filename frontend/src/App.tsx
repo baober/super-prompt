@@ -67,7 +67,7 @@ function AppContent() {
             >
               <SearchBar onResultClick={handleSearchResultClick} />
 
-              <div className="flex items-center gap-1 shrink-0 ml-auto">
+              <div className="flex items-center gap-1 shrink-0 ml-4">
                 {/* 设置按钮 */}
                 <button
                   onClick={() => setShowSettings(true)}

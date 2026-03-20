@@ -79,7 +79,7 @@ export function SearchBar({ onResultClick }: SearchBarProps) {
   }
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-xl">
+    <div ref={containerRef} className="relative flex-1 max-w-3xl">
       {/* Input */}
       <div className="relative">
         <span
