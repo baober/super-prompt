@@ -1,0 +1,38 @@
+server:
+  host: "127.0.0.1"       # 绑定地址：127.0.0.1 仅本机，0.0.0.0 允许局域网访问
+  frontend_port: 5173
+  backend_port: 8000
+
+storage:
+  prompt_dir: "./prompts"
+
+# LLM 配置列表，支持多个，同时只能启用一个 (enabled: true)
+# type 支持: openai_compatible, ollama
+llm_providers:
+  # - id: "provider-1"
+  #   name: "GPT-4o"
+  #   type: "openai_compatible"
+  #   base_url: "https://api.openai.com/v1"
+  #   api_key: "sk-xxx"
+  #   model: "gpt-4o"
+  #   enabled: true
+  # - id: "provider-2"
+  #   name: "Ollama Qwen2.5"
+  #   type: "ollama"
+  #   base_url: "http://localhost:11434/v1"
+  #   api_key: ""
+  #   model: "qwen2.5:14b"
+  #   enabled: false
+
+optimize_prompt: |
+  你是一个 Prompt 优化专家。请优化用户提供的 prompt，使其更清晰、更结构化、更有效。
+
+  要求：
+  1. 保持原始意图不变
+  2. 使用结构化格式（角色、任务、规则等）
+  3. 补充必要的约束和边界条件
+  4. 只输出优化后的 prompt，不要解释
+
+appearance:
+  theme: "dark"      # dark | light
+  language: "zh"     # zh | en
