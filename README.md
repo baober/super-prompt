@@ -2,6 +2,8 @@
 
 Prompt 管理与 AI 优化系统。通过 Web 界面管理、编辑和 AI 优化各类 AI 工具的 Prompt，替代本地 Markdown 文件手动管理方式。
 
+![Preview](docs/images/preview.png)
+
 ## 功能
 
 - 📁 **多项目管理** — 每个项目对应一个 Markdown 文件，支持创建/重命名/删除/排序
