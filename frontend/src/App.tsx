@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ThemeProvider, useTheme } from './theme/ThemeProvider'
 import { Sidebar } from './components/Sidebar'
@@ -24,6 +24,19 @@ function AppContent() {
     reorderPrompts,
     undoPrompt,
   } = usePrompts(activeProjectId)
+
+  // 当存储目录变更时，重置选中的项目和编辑状态
+  useEffect(() => {
+    const handleStorageDirChanged = () => {
+      setActiveProjectId(null)
+      setEditingPromptId(null)
+      setHighlightPromptId(null)
+    }
+    window.addEventListener('storage-dir-changed', handleStorageDirChanged)
+    return () => {
+      window.removeEventListener('storage-dir-changed', handleStorageDirChanged)
+    }
+  }, [])
 
   const handleAddPrompt = async () => {
     const prompt = await addPrompt()
@@ -59,7 +72,7 @@ function AppContent() {
           <>
             {/* 顶部功能区：搜索 + 设置/主题/语言 */}
             <div
-              className="flex items-center pl-6 pr-8 py-3 shrink-0 gap-2"
+              className="flex items-center px-6 py-3 shrink-0 gap-2"
               style={{
                 backgroundColor: 'var(--bg-primary)',
                 borderBottom: '1px solid var(--border-color)',
