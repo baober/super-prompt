@@ -59,7 +59,7 @@ function AppContent() {
           <>
             {/* 顶部功能区：搜索 + 设置/主题/语言 */}
             <div
-              className="flex items-center px-6 py-3 shrink-0 gap-2"
+              className="flex items-center pl-6 pr-8 py-3 shrink-0 gap-2"
               style={{
                 backgroundColor: 'var(--bg-primary)',
                 borderBottom: '1px solid var(--border-color)',
