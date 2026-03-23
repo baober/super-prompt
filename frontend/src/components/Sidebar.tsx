@@ -437,17 +437,22 @@ export function Sidebar({ activeProjectId, onProjectSelect }: SidebarProps) {
 
       {/* Bottom bar: 只保留展开/折叠按钮 */}
       <div
-        className="flex items-center justify-center px-3 py-2 border-t"
+        className="flex items-center justify-center px-3 py-2 border-t gap-2"
         style={{ borderColor: 'var(--border-color)' }}
       >
         <button
           className="w-8 h-8 flex items-center justify-center rounded hover:opacity-80"
           style={{ color: 'var(--text-secondary)' }}
           onClick={() => setCollapsed(!collapsed)}
-          title={collapsed ? 'Expand' : 'Collapse'}
+          title={collapsed ? t('sidebar.expand') : t('sidebar.collapse')}
         >
           {collapsed ? '▶' : '◀'}
         </button>
+        {!collapsed && (
+          <span className="text-xs whitespace-nowrap" style={{ color: 'var(--text-secondary)' }}>
+            {t('sidebar.collapse')}
+          </span>
+        )}
       </div>
 
       {/* Resize handle */}

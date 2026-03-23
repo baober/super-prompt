@@ -15,7 +15,9 @@
     "createPrompt": "请输入项目名称",
     "createDuplicate": "项目 \"{{name}}\" 已存在，请使用其他名称",
     "copy": "复制",
-    "copied": "已复制"
+    "copied": "已复制",
+    "collapse": "收起侧边栏",
+    "expand": "展开侧边栏"
   },
   "prompt": {
     "addNew": "添加提示词",
@@ -74,7 +76,10 @@
     "testProvider": "测试",
     "testing": "测试中...",
     "testSuccess": "连接成功",
-    "testFailed": "连接失败"
+    "testFailed": "连接失败",
+    "promptOrder": "Prompt 排列顺序",
+    "promptOrderAsc": "顺序（旧→新）",
+    "promptOrderDesc": "倒序（新→旧）"
   },
   "errors": {
     "loadProjects": "加载项目列表失败",

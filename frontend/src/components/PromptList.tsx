@@ -26,6 +26,7 @@ interface PromptListProps {
   loading: boolean
   editingPromptId: string | null
   highlightPromptId?: string | null
+  reverseOrder?: boolean
   onEditPrompt: (id: string | null) => void
   onAddPrompt: () => void
   onDeletePrompt: (id: string) => void
@@ -40,6 +41,7 @@ export function PromptList({
   loading,
   editingPromptId,
   highlightPromptId,
+  reverseOrder = false,
   onEditPrompt,
   onAddPrompt,
   onDeletePrompt,
@@ -84,6 +86,9 @@ export function PromptList({
     }
   }, [deleteTarget, onDeletePrompt])
 
+  // 倒序模式下反转展示列表
+  const displayPrompts = reverseOrder ? [...prompts].reverse() : prompts
+
   if (loading) {
     return (
       <div className="p-4">
@@ -109,17 +114,32 @@ export function PromptList({
         </div>
       ) : (
         <>
+          {/* 倒序模式下，添加按钮在列表上方 */}
+          {reverseOrder && (
+            <button
+              onClick={onAddPrompt}
+              className="mb-3 w-full cursor-pointer rounded-xl border-2 border-dashed py-3 text-sm font-medium transition-colors hover:border-solid"
+              style={{
+                borderColor: 'var(--border-color)',
+                color: 'var(--text-secondary)',
+                backgroundColor: 'transparent',
+              }}
+            >
+              ＋ 添加新 Prompt
+            </button>
+          )}
+
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
           >
             <SortableContext
-              items={prompts.map((p) => p.id)}
+              items={displayPrompts.map((p) => p.id)}
               strategy={verticalListSortingStrategy}
             >
               <div className="space-y-2">
-                {prompts.map((prompt) =>
+                {displayPrompts.map((prompt) =>
                   editingPromptId === prompt.id ? (
                     <PromptEditor
                       key={prompt.id}
@@ -144,17 +164,20 @@ export function PromptList({
             </SortableContext>
           </DndContext>
 
-          <button
-            onClick={onAddPrompt}
-            className="mt-3 w-full cursor-pointer rounded-xl border-2 border-dashed py-3 text-sm font-medium transition-colors hover:border-solid"
-            style={{
-              borderColor: 'var(--border-color)',
-              color: 'var(--text-secondary)',
-              backgroundColor: 'transparent',
-            }}
-          >
-            ＋ 添加新 Prompt
-          </button>
+          {/* 顺序模式下，添加按钮在列表下方 */}
+          {!reverseOrder && (
+            <button
+              onClick={onAddPrompt}
+              className="mt-3 w-full cursor-pointer rounded-xl border-2 border-dashed py-3 text-sm font-medium transition-colors hover:border-solid"
+              style={{
+                borderColor: 'var(--border-color)',
+                color: 'var(--text-secondary)',
+                backgroundColor: 'transparent',
+              }}
+            >
+              ＋ 添加新 Prompt
+            </button>
+          )}
         </>
       )}
 

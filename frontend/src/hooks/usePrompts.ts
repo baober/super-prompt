@@ -27,6 +27,10 @@ export function usePrompts(activeProjectId: string | null) {
     fetchPrompts()
   }, [fetchPrompts])
 
+  const notifyPromptCountChanged = useCallback(() => {
+    window.dispatchEvent(new CustomEvent('prompt-count-changed'))
+  }, [])
+
   const addPrompt = useCallback(async () => {
     if (!activeProjectId) return
     const prompt = await api.addPrompt(activeProjectId, {
@@ -35,8 +39,9 @@ export function usePrompts(activeProjectId: string | null) {
       tags: [],
     })
     setPrompts((prev) => [...prev, prompt])
+    notifyPromptCountChanged()
     return prompt
-  }, [activeProjectId])
+  }, [activeProjectId, notifyPromptCountChanged])
 
   const updatePrompt = useCallback(
     async (promptId: string, data: Partial<Pick<Prompt, 'title' | 'content' | 'tags'>>) => {
@@ -53,8 +58,9 @@ export function usePrompts(activeProjectId: string | null) {
       if (!activeProjectId) return
       await api.deletePrompt(activeProjectId, promptId)
       setPrompts((prev) => prev.filter((p) => p.id !== promptId))
+      notifyPromptCountChanged()
     },
-    [activeProjectId],
+    [activeProjectId, notifyPromptCountChanged],
   )
 
   const reorderPrompts = useCallback(

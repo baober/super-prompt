@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import type { Prompt } from '../types'
 import { optimizePrompt, updatePrompt } from '../api/client'
 import { TagInput } from './TagInput'
@@ -14,6 +14,7 @@ interface PromptEditorProps {
 }
 
 export function PromptEditor({ prompt, projectId, onClose, onUpdated, onDelete, onUndo }: PromptEditorProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
   const [title, setTitle] = useState(prompt.title)
   const [content, setContent] = useState(prompt.content)
   const [tags, setTags] = useState<string[]>(prompt.tags)
@@ -22,6 +23,13 @@ export function PromptEditor({ prompt, projectId, onClose, onUpdated, onDelete, 
   const [aiError, setAiError] = useState<string | null>(null)
   const [showAi, setShowAi] = useState(false)
   const [saving, setSaving] = useState(false)
+
+  // 自动滚动到编辑区域
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }, [])
 
   const handleOptimize = useCallback(async () => {
     setAiLoading(true)
@@ -93,6 +101,7 @@ export function PromptEditor({ prompt, projectId, onClose, onUpdated, onDelete, 
 
   return (
     <div
+      ref={containerRef}
       className="rounded-xl border-2 p-4"
       style={{
         borderColor: 'var(--accent)',

@@ -45,6 +45,17 @@ export function useProjects() {
     }
   }, [fetchProjects])
 
+  // Listen for prompt count changes (add/delete prompt)
+  useEffect(() => {
+    const handlePromptCountChanged = () => {
+      fetchProjects()
+    }
+    window.addEventListener('prompt-count-changed', handlePromptCountChanged)
+    return () => {
+      window.removeEventListener('prompt-count-changed', handlePromptCountChanged)
+    }
+  }, [fetchProjects])
+
   const fetchSubfolder = useCallback(async (subfolder: string) => {
     try {
       const data = await api.getProjects(sortFieldToApi(sortBy), sortOrder, subfolder)

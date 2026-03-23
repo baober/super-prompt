@@ -14,6 +14,9 @@ function AppContent() {
   const [editingPromptId, setEditingPromptId] = useState<string | null>(null)
   const [highlightPromptId, setHighlightPromptId] = useState<string | null>(null)
   const [showSettings, setShowSettings] = useState(false)
+  const [promptOrder, setPromptOrder] = useState<'asc' | 'desc'>(() => {
+    return (localStorage.getItem('prompt-order') as 'asc' | 'desc') || 'desc'
+  })
 
   const {
     prompts,
@@ -67,7 +70,14 @@ function AppContent() {
       />
       <div className="flex-1 flex flex-col overflow-hidden">
         {showSettings ? (
-          <SettingsPanel onClose={() => setShowSettings(false)} />
+          <SettingsPanel
+            onClose={() => setShowSettings(false)}
+            promptOrder={promptOrder}
+            onPromptOrderChange={(order) => {
+              setPromptOrder(order)
+              localStorage.setItem('prompt-order', order)
+            }}
+          />
         ) : (
           <>
             {/* 顶部功能区：搜索 + 设置/主题/语言 */}
@@ -80,7 +90,7 @@ function AppContent() {
             >
               <SearchBar onResultClick={handleSearchResultClick} />
 
-              <div className="flex items-center gap-1 shrink-0 ml-4">
+              <div className="flex items-center gap-1 shrink-0 flex-1 justify-center">
                 {/* 设置按钮 */}
                 <button
                   onClick={() => setShowSettings(true)}
@@ -124,6 +134,7 @@ function AppContent() {
                 loading={loading}
                 editingPromptId={editingPromptId}
                 highlightPromptId={highlightPromptId}
+                reverseOrder={promptOrder === 'desc'}
                 onEditPrompt={setEditingPromptId}
                 onAddPrompt={handleAddPrompt}
                 onDeletePrompt={deletePrompt}

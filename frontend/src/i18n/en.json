@@ -15,7 +15,9 @@
     "createPrompt": "Enter project name",
     "createDuplicate": "Project \"{{name}}\" already exists, please use a different name",
     "copy": "Copy",
-    "copied": "Copied"
+    "copied": "Copied",
+    "collapse": "Collapse Sidebar",
+    "expand": "Expand Sidebar"
   },
   "prompt": {
     "addNew": "Add Prompt",
@@ -74,7 +76,10 @@
     "testProvider": "Test",
     "testing": "Testing...",
     "testSuccess": "Connected",
-    "testFailed": "Failed"
+    "testFailed": "Failed",
+    "promptOrder": "Prompt Order",
+    "promptOrderAsc": "Ascending (Old → New)",
+    "promptOrderDesc": "Descending (New → Old)"
   },
   "errors": {
     "loadProjects": "Failed to load projects",

@@ -8,9 +8,11 @@ import { LlmProviderList } from './LlmProviderList'
 
 interface SettingsPanelProps {
   onClose: () => void
+  promptOrder: 'asc' | 'desc'
+  onPromptOrderChange: (order: 'asc' | 'desc') => void
 }
 
-export function SettingsPanel({ onClose }: SettingsPanelProps) {
+export function SettingsPanel({ onClose, promptOrder, onPromptOrderChange }: SettingsPanelProps) {
   const { t } = useTranslation()
   const { theme, toggleTheme } = useTheme()
   const {
@@ -186,6 +188,35 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
                   {settings?.backend_port ?? '-'}
                 </span>
               </div>
+            </div>
+          </section>
+
+          {/* Prompt Order */}
+          <section>
+            {sectionTitle(t('settings.promptOrder'))}
+            <div className="flex gap-2">
+              <button
+                className="text-sm px-4 py-2 rounded-lg hover:opacity-80"
+                style={{
+                  backgroundColor: promptOrder === 'desc' ? 'var(--accent)' : 'var(--bg-secondary)',
+                  color: promptOrder === 'desc' ? '#fff' : 'var(--text-primary)',
+                  border: '1px solid var(--border-color)',
+                }}
+                onClick={() => onPromptOrderChange('desc')}
+              >
+                ↓ {t('settings.promptOrderDesc')}
+              </button>
+              <button
+                className="text-sm px-4 py-2 rounded-lg hover:opacity-80"
+                style={{
+                  backgroundColor: promptOrder === 'asc' ? 'var(--accent)' : 'var(--bg-secondary)',
+                  color: promptOrder === 'asc' ? '#fff' : 'var(--text-primary)',
+                  border: '1px solid var(--border-color)',
+                }}
+                onClick={() => onPromptOrderChange('asc')}
+              >
+                ↑ {t('settings.promptOrderAsc')}
+              </button>
             </div>
           </section>
 
