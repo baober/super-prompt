@@ -35,8 +35,12 @@ npm-debug.log*
 # Config (user's local config, sample is tracked)
 config.yaml
 
-# User data
+# User prompt data (keep example files for open-source repo)
 prompts/*
+!prompts/超级提示词管理2.md
+
+# Claude Code
+.claude/settings.local.json
 
 # PID file
 *.pid
